@@ -1,0 +1,14 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=718
+
+If, when viewing readonly files in vim, you wish that up/down arrows behaved like in web browser (each down arrow scrolls the view 1 line down, except near end of file; each arrow-up scrolls the view 1 line up, except near beginning of file) 
+-- then this plugin does it.
+
+To check the difference, just source the script (':so ro_positioning.vim' if not installed) and try the help (:he) and
+try arrows down. You'll notice that up/down arrows behave more conveniently. 
+
+This plugin remaps arrow-up and arrow-down in readonly files to behave more conveniently. No remappings are done for non-readonly files.
+
+If you want to enable this mode for arbitrary writable file, do:
+     :set ro
+     :e
+
