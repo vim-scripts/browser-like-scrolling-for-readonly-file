@@ -2,23 +2,23 @@
     if exists("g:ro_positioning_loaded") | finish | endif
     let g:ro_positioning_loaded=1
 
-    function! s:RoPositioning()
+    function! s:RoBufEnter()
         if &readonly
-             let s:x=winheight(winnr())/2
-             :exe ":" . s:x . "\n"
+             if line(".") == 1
+                 let s:x=winheight(winnr())/2
+                 :exe ":" . s:x . "\n"
+             endif
              set so=999
         endif
         if &so != 0 && &readonly 
             " noremap j :call s:SoRo_Down()<cr>
-            noremap <Down> :call SoRo_Down()<cr>
-            noremap <Up>   :call SoRo_Up()<cr>
+            noremap <silent> <Down> :call SoRo_Down()<cr>
+            noremap <silent> <Up>   :call SoRo_Up()<cr>
         endif
     endfunction
     function! SoRo_Down()
         if &so != 0 && &readonly
-            " XXX correct cmp involves &so
             if line('.') < winheight(winnr())/2
-                " XXX local var or global ?
                 let skip=winheight(winnr())/2 - line('.')
                 :exe "normal " skip . "j"
             else
@@ -32,7 +32,6 @@
     function! SoRo_Up()
         if &so != 0 && &readonly
             if line('.') > line('$') - winheight(winnr())/2
-                " XXX local var or global ?
                 let skip=line('.') - (line('$') - winheight(winnr())/2)
                 :exe "normal " skip ."k"
             else
@@ -44,6 +43,6 @@
         echo ""
     endfunction
 
-    au BufEnter * :call s:RoPositioning()
+    au BufEnter * :call s:RoBufEnter()
 " $VIMRUNTIME/plugin/ro-positioning.vim
 
